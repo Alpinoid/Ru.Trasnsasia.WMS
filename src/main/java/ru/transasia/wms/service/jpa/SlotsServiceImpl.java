@@ -30,14 +30,14 @@ public class SlotsServiceImpl implements SlotsService {
 	@Override
 	@Transactional(readOnly=true)
 	public List<Slots> getAllSlots() { 
-		Sort sort = new Sort(Direction.ASC, "articul");
+		Sort sort = new Sort(Direction.ASC, "cell");
         return (List<Slots>) slotRepository.findAll(sort);
 	}
 	
 	@Override
 	@Transactional(readOnly=true)
-	public Slots findSlotByArticul(String slotArticul) {
-		return slotRepository.findByArticul(slotArticul);
+	public Slots findSlotByCell(String slotCell) {
+		return slotRepository.findByCell(slotCell);
 	}
 
 	@Override

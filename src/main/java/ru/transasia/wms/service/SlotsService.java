@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface SlotsService {
     
-    public List<Slots> getAllSlots();
+	public List<Slots> getAllSlots();
     
-    public Slots findSlotByArticul(String slotArticul);
+    public Slots findSlotByCell(String slotCell);
     
     public void save(Slots slot);
     

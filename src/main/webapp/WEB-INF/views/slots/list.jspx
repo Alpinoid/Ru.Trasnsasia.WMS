@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	 xmlns:c="http://java.sun.com/jsp/jstl/core"
+	 xmlns:spring="http://www.springframework.org/tags"
+	 xmlns:sec="http://www.springframework.org/security/tags">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+	<jsp:output omit-xml-declaration="yes" />
+	
+	<spring:message code="label_slot_articul" var="labelSlotArticul" />
+	<spring:message code="label_slot_name" var="labelSlotName" />
+	<spring:message code="label_slot_cell" var="labelSlotCell" />
+	<spring:message code="label_action" var="labelAction" />
+	<spring:message code="action_add" var="actionAdd" />
+	<spring:message code="action_edit" var="actionEdit" />
+	<spring:message code="action_delete" var="actionDelete" />
+	<spring:message code="action_deleteAll" var="actionDeleteAll" />
+	
+	<spring:url value="/slots" var="editSlotUrl" />
+	<spring:url value="/slots?form" var="addSlotUrl" />
+	
+	<a href="${addSlotUrl}"><h3>${actionAdd}</h3></a>
+	
+	<c:if test="${not empty slots}">
+		<TABLE>
+			<THEAD>
+				<TR>
+					<TH>${labelSlotCell}</TH>
+					<TH>${labelSlotArticul}</TH>
+					<TH>${labelSlotName}</TH>
+					<TH>${labelAction}</TH>	
+				</TR>
+			</THEAD>
+			<TBODY>
+				<c:forEach items="${slots}" var="slot">
+		        	<TR>
+		            	<td>${slot.cell}</td>
+		            	<td>${slot.articul}</td>
+		            	<td>${slot.name}</td>
+		            	<td><a href="${editSlotUrl}/${slot.cell}?form">${actionEdit}</a> | <a href="${editSlotUrl}/${slot.cell}?delete">${actionDelete}</a></td>
+					</TR>
+				</c:forEach>
+			</TBODY>	
+		</TABLE>
+	</c:if>
+
+
+</div>

@@ -6,29 +6,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.validator.constraints.Length;
-
 @Entity
 @Table(name="tmp_slot",
-       uniqueConstraints = @UniqueConstraint(columnNames="Art") 
+       uniqueConstraints = @UniqueConstraint(columnNames="Cell") 
 )
 public class Slots {
 
 	@Id
-	@Length(min=3, max=255, message="{validation_name_size}")
-	@Column(name="Art", unique=true, nullable=true)
+	@Column(name="Cell", unique=true, nullable=true)
+    private String cell;
+	
+	@Column(name="Art", unique=false, nullable=true)
     private String articul;
 
-	@Length(min=3, max=255, message="{validation_name_size}")
 	@Column(name="Nm", unique=false, nullable=true)
     private String name;
-	
-	@Length(min=3, max=255, message="{validation_name_size}")
-	@Column(name="Cell", unique=false, nullable=true)
-    private String cell;
 
     public Slots() {
     }
+    
+	public String getCell() {
+		return cell;
+	}
+
+	public void setCell(String cellString) {
+		cell = cellString;
+	}
    
 	public String getArticul() {
 		return articul;
@@ -46,17 +49,9 @@ public class Slots {
 		name = nameString;
 	}
 
-	public String getCell() {
-		return cell;
-	}
-
-	public void setCell(String cellString) {
-		cell = cellString;
-	}
-
 	@Override
 	public String toString() {
-		String result = "Slot - Articul: " + this.getArticul() + "; Name: " + this.getName() + "; Cell: " + this.getCell();
+		String result = "Slot info - Cell: " + this.getCell() + "; Articul: " + this.getArticul() + "; Name: " + this.getName();
 		return result;
 	}
 

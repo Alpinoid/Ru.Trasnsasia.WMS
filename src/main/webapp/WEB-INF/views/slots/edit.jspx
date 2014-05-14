@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" 
+     xmlns:c="http://java.sun.com/jsp/jstl/core" 
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form">
+     
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+	<spring:message code="label_slot_cell" var="labelSlotCell" />
+	<spring:message code="label_slot_articul" var="labelSlotArticul" />
+	<spring:message code="label_slot_name" var="labelSlotName" />
+    <spring:message code="action_save" var="actionSave"/>
+    <spring:message code="action_reset" var="actionReset"/>
+
+    <div id="slotEdit">
+	    <form:form modelAttribute="slot" id="slotEditForm" method="post">
+	
+ 	        <c:if test="${not empty message}">
+ 	            <div id="message" class="${message.type}">${message.message}</div>
+ 	        </c:if>
+	        
+	        <TABLE>
+	        	<TR>
+	        		<td>${labelSlotCell}:</td>
+	        		<td><form:input path="cell" readonly="true" /></td>
+	        	</TR>
+	        	<TR>
+	        		<td>${labelSlotArticul}:</td>
+	        		<td><form:input path="articul" /></td>
+	        	</TR>
+	        	<TR>
+	        		<td>${labelSlotName}:</td>
+	        		<td><form:input path="name" /></td>
+	        	</TR>        
+	        </TABLE>
+	
+   	        <button type="submit">${actionSave}</button>
+	        <button type="reset">${actionReset}</button> 
+	        
+	    </form:form>   
+    </div>
+
+</div>

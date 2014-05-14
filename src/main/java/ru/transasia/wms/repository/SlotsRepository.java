@@ -12,8 +12,8 @@ import java.lang.String;
 public interface SlotsRepository extends CrudRepository<Slots, Integer>{
 	
 	List<Slots> findAll(Sort sort);
-	
-	Slots findByArticul(String articul);
+
+	Slots findByCell(String cell);
 	
 	void deleteAll();
 

@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
@@ -18,11 +19,36 @@
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="suffix" value=".jspx" />
 	</beans:bean>
 	
-	<context:component-scan base-package="ru.transasia.wms" />
+	<context:component-scan base-package="ru.transasia.wms.web.controller" />
 	
-	
+	<interceptors>
+    	<beans:bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
+    	<beans:bean
+    		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+    		p:paramName="lang"
+    	/>
+    </interceptors>
+    
+	<beans:bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		p:fallbackToSystemLocale="false"
+		p:basenames="WEB-INF/i18n/messages"
+		id="messageSource"/>
+  
+    <beans:bean
+    	class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
+    	id="localeResolver"
+    	p:cookieName="locale"
+    /> 
+    
+    <beans:bean class="org.springframework.ui.context.support.ResourceBundleThemeSource"
+    			id="themeSource"/>
+    
+    <beans:bean class="org.springframework.web.servlet.theme.CookieThemeResolver"
+    			id="themeResolver"
+    			p:cookieName="theme"
+    			p:defaultThemeName="standard"/>
 	
 </beans:beans>

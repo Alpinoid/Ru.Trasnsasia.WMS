@@ -23,8 +23,6 @@ import ru.transasia.wms.domain.Slots;
 import ru.transasia.wms.service.SlotsService;
 import ru.transasia.wms.web.form.Message;
 import ru.transasia.wms.web.form.PageParams;
-import ru.transasia.wms.web.util.UrlUtil;
-
 
 @RequestMapping("/slots")
 @Controller
@@ -35,8 +33,8 @@ public class SlotsController {
 	@ModelAttribute("pageParams")
 	public PageParams setPageParams(HttpServletRequest httpServletRequest, Locale locale) {
 		PageParams pageParams = new PageParams();
-		pageParams.setMenuText("action_home_tag", messageSource, locale);
-		pageParams.setMenuUrl("/tags", httpServletRequest);
+		pageParams.setMenuText("action_home_slot", messageSource, locale);
+		pageParams.setMenuUrl("/slots", httpServletRequest);
 		return pageParams;
 	}
 
@@ -56,17 +54,6 @@ public class SlotsController {
     	return "slots/list";
     }
     
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public String view(@ModelAttribute("pageParams") PageParams pageParams,
-    				   @PathVariable("id") String id, Model uiModel, Locale locale) {
-    	Slots slot = slotService.findSlotByArticul(id);
-    	pageParams.setHeaderText("label_slot_info", messageSource, locale);
-
-    	uiModel.addAttribute("slot", slot);
-    	
-    	return "slots/view";
-    }
-  
     @RequestMapping(value = "/{id}", params = "form", method = RequestMethod.POST)
     public String update(@ModelAttribute("slot") @Valid Slots slot,
     					 BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest,
@@ -75,14 +62,14 @@ public class SlotsController {
         if (bindingResult.hasErrors()) {
         	uiModel.addAttribute("message", new Message("error", messageSource.getMessage("message_save_fail", new Object[]{}, locale)));        	
             uiModel.addAttribute("slot", slot);
-            return "slots/update";
+            return "slots/edit";
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute("message", new Message("success", messageSource.getMessage("message_save_success", new Object[]{}, locale)));   
         
         slotService.save(slot);
         logger.info("Altered slot: {}", slot);
-        return "redirect:/slots/" + UrlUtil.encodeUrlPathSegment(slot.getArticul().toString(), httpServletRequest);
+        return "redirect:/slots";
     }	
 
    	@RequestMapping(value = "/{id}", params = "form", method = RequestMethod.GET)
@@ -90,9 +77,9 @@ public class SlotsController {
     						 @PathVariable("id") String id, Model uiModel, Locale locale) {
     	pageParams.setHeaderText("label_slot_update", messageSource, locale);
 
-        uiModel.addAttribute("slot", slotService.findSlotByArticul(id));
+        uiModel.addAttribute("slot", slotService.findSlotByCell(id));
 
-        return "tags/update";
+        return "slots/edit";
 	}
 	
 	@RequestMapping(params = "form", method = RequestMethod.POST)
@@ -110,7 +97,7 @@ public class SlotsController {
         
         slotService.save(slot);
         logger.info("Added new slot: {}", slot);
-        return "redirect:/slots/" + UrlUtil.encodeUrlPathSegment(slot.getArticul().toString(), httpServletRequest);
+        return "redirect:/slots";
     }	
 
 	@RequestMapping(params = "form", method = RequestMethod.GET)
@@ -120,12 +107,12 @@ public class SlotsController {
 
         uiModel.addAttribute("slot", slot);
 
-        return "slots/create";
+        return "slots/edit";
     }
 
 	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.GET)
     public String delete(@PathVariable("id") String id) {
-		slotService.delete(slotService.findSlotByArticul(id));
+		slotService.delete(slotService.findSlotByCell(id));
         logger.info("Deleted slot with Articul: {}", id);
         return "redirect:/slots";
 	}
