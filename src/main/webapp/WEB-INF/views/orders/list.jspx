@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	 xmlns:c="http://java.sun.com/jsp/jstl/core"
+	 xmlns:spring="http://www.springframework.org/tags"
+	 xmlns:sec="http://www.springframework.org/security/tags">
+	<jsp:directive.page contentType="text/html; charset=UTF-8"/>
+	<jsp:output omit-xml-declaration="yes" />
+		
+	<spring:message code="label_order_list" var="labelOrderList" />
+	<spring:message code="label_order_date" var="labelOrderDate" />
+	<spring:message code="label_order_number" var="labelOrderNumber" />
+	<spring:message code="label_order_branch" var="labelOrderBranch" />
+	<spring:message code="label_order_warehouse" var="labelOrderWarehouse" />
+	<spring:message code="label_order_rows" var="labelOrderRows" />
+	<spring:message code="label_order_boxes" var="labelOrderBoxes" />
+	<spring:message code="date_time_format" var="dateFormat" />
+	
+	<h1>${labelOrderList}</h1>
+	
+ 	<c:if test="${not empty orders}">
+		<TABLE>
+			<THEAD>
+				<TR>
+					<TH>${labelOrderDate}</TH>
+					<TH>${labelOrderNumber}</TH>
+					<TH>${labelOrderBranch}</TH>
+					<TH>${labelOrderWarehouse}</TH>
+					<TH>${labelOrderRows}</TH>
+					<TH>${labelOrderBoxes}</TH>
+				</TR>
+			</THEAD>
+			<TBODY>
+				<c:forEach items="${orders}" var="order">
+		        	<TR>
+						<td>${order.orderDate}</td>
+		            	<td>${order.orderNumber}</td>
+		            	<td>${order.ordersBranch}</td>
+		            	<td>${order.warehouseName}</td>
+		            	<td>${order.rowsCount}</td>
+		            	<td>${order.boxQuantity}</td>
+		            </TR>
+				</c:forEach>
+			</TBODY>	
+		</TABLE>
+	</c:if> 
+	
+
+
+</div>

@@ -77,7 +77,7 @@ public class SlotsController {
     						 @PathVariable("id") String id, Model uiModel, Locale locale) {
     	pageParams.setHeaderText("label_slot_update", messageSource, locale);
 
-        uiModel.addAttribute("slot", slotService.findSlotByCell(id));
+        uiModel.addAttribute("slot", slotService.getSlotByCell(id));
 
         return "slots/edit";
 	}
@@ -112,7 +112,7 @@ public class SlotsController {
 
 	@RequestMapping(value = "/{id}", params = "delete", method = RequestMethod.GET)
     public String delete(@PathVariable("id") String id) {
-		slotService.delete(slotService.findSlotByCell(id));
+		slotService.delete(slotService.getSlotByCell(id));
         logger.info("Deleted slot with Articul: {}", id);
         return "redirect:/slots";
 	}

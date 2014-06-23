@@ -8,7 +8,7 @@ public interface SlotsService {
     
 	public List<Slots> getAllSlots();
     
-    public Slots findSlotByCell(String slotCell);
+    public Slots getSlotByCell(String slotCell);
     
     public void save(Slots slot);
     
