@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <div xmlns:jsp="http://java.sun.com/JSP/Page"
 	 xmlns:c="http://java.sun.com/jsp/jstl/core"
+	 xmlns:form="http://www.springframework.org/tags/form"
 	 xmlns:spring="http://www.springframework.org/tags"
 	 xmlns:sec="http://www.springframework.org/security/tags">
 	<jsp:directive.page contentType="text/html; charset=UTF-8"/>
 	<jsp:output omit-xml-declaration="yes" />
 		
 	<spring:message code="label_order_list" var="labelOrderList" />
+	<spring:message code="label_order_filter_date" var="labelOrderFilterDate" />
+	<spring:message code="action_filter" var="actionFilter" />
+	<spring:message code="label_order_sum_rows" var="labelOrderSumRows" />
+	<spring:message code="label_order_sum_boxes" var="labelOrderSumBoxes" />
 	<spring:message code="label_order_date" var="labelOrderDate" />
 	<spring:message code="label_order_number" var="labelOrderNumber" />
 	<spring:message code="label_order_branch" var="labelOrderBranch" />
@@ -15,7 +20,22 @@
 	<spring:message code="label_order_boxes" var="labelOrderBoxes" />
 	<spring:message code="date_time_format" var="dateFormat" />
 	
+	<spring:url value="/orders" var="viewOrdersUrl" />
+	
 	<h1>${labelOrderList}</h1>
+	
+	 <form:form modelAttribute="ordersFilter" action="${viewOrdersUrl}" method="get" id="filters-orders-form">
+		<div id="filterOrdersByDate">
+			<form:label path="filterOrdersByDate">
+            	${labelOrderFilterDate}:
+	        </form:label>
+			<form:input path="filterOrdersByDate" type="date" size="50%" />
+			<button type="submit">${actionFilter}</button>
+		</div>
+	</form:form>
+	
+	${labelOrderSumRows}: ${sumRows}<br/>
+	${labelOrderSumBoxes}: ${sumBoxes}<p/>
 	
  	<c:if test="${not empty orders}">
 		<TABLE>

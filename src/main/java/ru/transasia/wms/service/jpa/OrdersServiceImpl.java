@@ -4,7 +4,7 @@ import ru.transasia.wms.domain.Orders;
 import ru.transasia.wms.repository.OrdersRepository;
 import ru.transasia.wms.service.OrdersService;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -38,7 +38,7 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	@Transactional(readOnly=true)
 	public List<Orders> getOrdersByDate(Date orderDate) {
-		return orderRepository.findByOrderDate(orderDate);
+		return orderRepository.findByOrderDate(orderDate.toString()+" 00:00:00");
 	}
 	
 //	@Override

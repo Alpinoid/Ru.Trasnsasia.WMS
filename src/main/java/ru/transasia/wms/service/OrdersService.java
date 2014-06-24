@@ -2,7 +2,7 @@ package ru.transasia.wms.service;
 
 import ru.transasia.wms.domain.Orders;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 public interface OrdersService {

@@ -1,6 +1,6 @@
 package ru.transasia.wms.domain;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import javax.persistence.UniqueConstraint;
 public class Orders {
 
 	@Column(name="OrderDate", unique=false, nullable=true)
-    private Date orderDate;
+    private String orderDate;
 
 	@Id
 	@Column(name="OrderNumber", unique=false, nullable=false)
@@ -40,16 +40,16 @@ public class Orders {
     private Integer rowsCount;
 	
 	@Column(name="BoxQuantity", unique=false, nullable=true)
-    private Float boxQuantity;
+    private BigDecimal boxQuantity;
 
     public Orders() {
     }
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -93,11 +93,11 @@ public class Orders {
 		this.rowsCount = rowsCount;
 	}
 
-	public Float getBoxQuantity() {
+	public BigDecimal getBoxQuantity() {
 		return boxQuantity;
 	}
 
-	public void setBoxQuantity(Float boxQuantity) {
+	public void setBoxQuantity(BigDecimal boxQuantity) {
 		this.boxQuantity = boxQuantity;
 	}
 
