@@ -11,8 +11,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +29,7 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	@Transactional(readOnly=true)
 	public List<Orders> getAllOrders() { 
-		Sort sort = new Sort(Direction.ASC, "orderNumber");
-        return orderRepository.findAll(sort);
+        return orderRepository.findAll();
 	}
 	
 	@Override
@@ -41,17 +38,16 @@ public class OrdersServiceImpl implements OrdersService {
 		return orderRepository.findByOrderDate(orderDate.toString()+" 00:00:00");
 	}
 	
-//	@Override
-//	@Transactional(readOnly=true)
-//	public List<Orders> getOrdersByBranch(Branches branch) {
-//		return orderRepository.findByOrdersBranch(branch);
-//	}
-//
-//	@Override
-//	@Transactional(readOnly=true)
-//	public List<Orders> getOrdersByDateAndBranch(Date orderDate, Branches branch) {
-//		return orderRepository.findByOrderDateAndOrdersBranch(orderDate, branch);
-//	}
+	@Override
+	@Transactional(readOnly=true)
+	public List<Orders> getOrdersByBranches(List<String> ordersBranch) {
+		return orderRepository.findByOrdersBranchIn(ordersBranch);
+	}
 
+	@Override
+	@Transactional(readOnly=true)
+	public List<Orders> getOrdersByDateAndBranches(Date orderDate, List<String> ordersBranch) {
+		return orderRepository.findByOrderDateAndOrdersBranchIn(orderDate.toString()+" 00:00:00", ordersBranch);
+	}
 	
 }

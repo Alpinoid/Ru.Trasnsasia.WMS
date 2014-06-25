@@ -14,38 +14,43 @@ import javax.persistence.UniqueConstraint;
 )
 public class Orders {
 
+	@Column(name="BranchName", unique=false, nullable=false)
+	private String ordersBranch;
+	
 	@Column(name="OrderDate", unique=false, nullable=true)
     private String orderDate;
 
 	@Id
 	@Column(name="OrderNumber", unique=false, nullable=false)
     private String orderNumber;
-	
-//	@ManyToOne(fetch=FetchType.LAZY)
-//	@JoinColumn(name="BranchName", nullable=false)
-	@Column(name="BranchName", unique=false, nullable=false)
-//	private Branches ordersBranch;
-	private String ordersBranch;
-	
+
 	@Column(name="CustomerCode", unique=false, nullable=false)
     private String customerCode;
 	
 	@Column(name="CustomerName", unique=false, nullable=false)
     private String customerName;
 	
-	@Column(name="WarehouseName", unique=false, nullable=false)
-    private String warehouseName;
-	
 	@Column(name="RowsCount", unique=false, nullable=true)
     private Integer rowsCount;
 	
 	@Column(name="BoxQuantity", unique=false, nullable=true)
     private BigDecimal boxQuantity;
+	
+	@Column(name="SourceBase", unique=false, nullable=false)
+    private String sourceBase;
 
     public Orders() {
     }
 
-	public String getOrderDate() {
+	public String getOrdersBranch() {
+		return ordersBranch;
+	}
+
+	public void setOrdersBranch(String ordersBranch) {
+		this.ordersBranch = ordersBranch;
+	}
+	
+    public String getOrderDate() {
 		return orderDate;
 	}
 
@@ -61,14 +66,6 @@ public class Orders {
 		this.orderNumber = orderNumber;
 	}
 
-	public String getOrdersBranch() {
-		return ordersBranch;
-	}
-
-	public void setOrdersBranch(String ordersBranch) {
-		this.ordersBranch = ordersBranch;
-	}
-
 	public String getCustomerCode() {
 		return customerCode;
 	}
@@ -76,13 +73,13 @@ public class Orders {
 	public void setCustomerCode(String customerCode) {
 		this.customerCode = customerCode;
 	}
-
-	public String getWarehouseName() {
-		return warehouseName;
+	
+	public String getCustomerName() {
+		return customerName;
 	}
 
-	public void setWarehouseName(String warehouseName) {
-		this.warehouseName = warehouseName;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
 	public Integer getRowsCount() {
@@ -99,6 +96,15 @@ public class Orders {
 
 	public void setBoxQuantity(BigDecimal boxQuantity) {
 		this.boxQuantity = boxQuantity;
+		
+	}
+	
+	public String getSourceBase() {
+		return sourceBase;
+	}
+
+	public void setSourceBase(String sourceBase) {
+		this.sourceBase = sourceBase;
 	}
 
 	@Override

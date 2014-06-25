@@ -11,8 +11,8 @@ public interface OrdersService {
 	
 	public List<Orders> getOrdersByDate(Date orderDate);
 
-//	public List<Orders> getOrdersByBranch(Branches branch);
-//	
-//	public List<Orders> getOrdersByDateAndBranch(Date orderDate, Branches branch);
+	public List<Orders> getOrdersByBranches(List<String> ordersBranch);
+	
+	public List<Orders> getOrdersByDateAndBranches(Date orderDate, List<String> ordersBranch);
 
 }
