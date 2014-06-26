@@ -1,5 +1,6 @@
 package ru.transasia.wms.service.jpa;
 
+import ru.transasia.wms.domain.Branches;
 import ru.transasia.wms.repository.BranchesRepository;
 import ru.transasia.wms.service.BranchesService;
 
@@ -28,8 +29,21 @@ public class BranchesServiceImpl implements BranchesService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<String> getAllBranches() {
+	public List<Branches> getAllBranches() {
 		return branchRepository.findAll(new Sort(Direction.ASC, "branchName"));
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Branches getBranchByID(Integer branchID) {
+		return branchRepository.findOne(branchID);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Branches getBranchByName(String branchName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

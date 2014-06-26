@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface BranchesRepository extends CrudRepository<Branches, Integer>{
 	
-	List<String> findAll(Sort sort);
+	List<Branches> findAll(Sort sort);
+	
+	Branches findOne(Integer branchID);
 
 }

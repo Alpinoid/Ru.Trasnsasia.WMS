@@ -1,10 +1,12 @@
 package ru.transasia.wms.service.jpa;
 
+import ru.transasia.wms.domain.Branches;
 import ru.transasia.wms.domain.Orders;
 import ru.transasia.wms.repository.OrdersRepository;
 import ru.transasia.wms.service.OrdersService;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -40,14 +42,23 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	@Override
 	@Transactional(readOnly=true)
-	public List<Orders> getOrdersByBranches(List<String> ordersBranch) {
-		return orderRepository.findByOrdersBranchIn(ordersBranch);
+	public List<Orders> getOrdersByBranches(List<Branches> ordersBranch) {
+		// TODO Пернеснести 4 нижнии строки в некую функцию
+		List<String> listBranchesNames = new ArrayList<String>();
+		for (Branches branch : ordersBranch) {
+			listBranchesNames.add(branch.getBranchName());
+		}
+		return orderRepository.findByOrdersBranchIn(listBranchesNames);
 	}
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<Orders> getOrdersByDateAndBranches(Date orderDate, List<String> ordersBranch) {
-		return orderRepository.findByOrderDateAndOrdersBranchIn(orderDate.toString()+" 00:00:00", ordersBranch);
+	public List<Orders> getOrdersByDateAndBranches(Date orderDate, List<Branches> ordersBranch) {
+		List<String> listBranchesNames = new ArrayList<String>();
+		for (Branches branch : ordersBranch) {
+			listBranchesNames.add(branch.getBranchName());
+		}
+		return orderRepository.findByOrderDateAndOrdersBranchIn(orderDate.toString()+" 00:00:00", listBranchesNames);
 	}
 	
 }

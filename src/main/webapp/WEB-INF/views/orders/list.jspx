@@ -29,17 +29,17 @@
 	<h1>${labelOrderList}</h1>
 	
 	 <form:form modelAttribute="ordersFilter" action="${viewOrdersUrl}" method="get" id="filters-orders-form">
-		<div id="filterOrdersByDate">
+		<div id="ordersFilter">
 			<form:label path="filterOrdersByDate">
             	${labelOrderFilterDate}:
 	        </form:label>
-			<form:input path="filterOrdersByDate" type="date" size="50%" /><br/>
-			<form:label path="filterOrdersByBranchesList">
+			<form:input path="filterOrdersByDate" type="date"/><br/>
+			<form:label path="filterOrdersByBranchID">
             	${labelOrderFilterBranch}:
 	        </form:label>
-			<form:select path="filterOrdersByBranchesList">
-            	<form:options items="${listBranches}" itemLabel="branchName" size="16"/>
-            </form:select>
+			<form:select path="filterOrdersByBranchID">
+            	<form:options items="${listBranches}" itemValue="branchID" itemLabel="branchName"/>
+            </form:select><br/>
 			<button type="submit">${actionFilter}</button>
 		</div>
 	</form:form>
